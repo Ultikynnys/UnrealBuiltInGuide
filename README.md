@@ -41,9 +41,10 @@ a C++ toolchain:
   "Game development with C++" workload).
 
 Do not hand a source clone to someone without a toolchain: opening the project triggers a
-compile that will fail. The binary release, by contrast, ships with `bUsePrecompiled = true`
-in its `UnrealBuiltInGuide.Build.cs`, so a C++ project links the shipped module directly and
-a blueprint-only project just loads the editor binaries. It also omits debug symbols (see
+compile that will fail. The binary release, by contrast, ships `bUsePrecompiled = true` in its
+`UnrealBuiltInGuide.Build.cs` and `"Installed": true` in its `.uplugin`, so UnrealBuildTool links
+the shipped module instead of rebuilding it: a C++ project links the prebuilt module and a
+blueprint-only project just loads the editor binaries. It also omits debug symbols (see
 [PDB.md](PDB.md)).
 
 ## Configuration
