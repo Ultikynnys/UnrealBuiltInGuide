@@ -1,0 +1,25 @@
+{
+	"FileVersion": 3,
+	"Version": 1,
+	"VersionName": "1.0.0",
+	"FriendlyName": "Unreal Built-in Guide",
+	"Description": "Adds a configurable toolbar button that opens a web guide (default: the Unreal style guide) directly from the editor.",
+	"Category": "Editor",
+	"CreatedBy": "Ultikynnys",
+	"CreatedByURL": "https://github.com/Ultikynnys/UnrealBuiltInGuide",
+	"DocsURL": "",
+	"MarketplaceURL": "",
+	"SupportURL": "https://github.com/Ultikynnys/UnrealBuiltInGuide",
+	"EngineVersion": "5.6.0",
+	"CanContainContent": false,
+	"IsBetaVersion": false,
+	"IsExperimentalVersion": false,
+	"Installed": false,
+	"Modules": [
+		{
+			"Name": "UnrealBuiltInGuide",
+			"Type": "Editor",
+			"LoadingPhase": "Default"
+		}
+	]
+}
