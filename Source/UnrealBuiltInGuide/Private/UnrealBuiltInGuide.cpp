@@ -9,6 +9,7 @@
 #include "ToolMenuEntry.h"
 #include "ToolMenuSection.h"
 #include "ToolMenus.h"
+#include "UObject/UObjectBase.h"
 #include "UnrealBuiltInGuideSettings.h"
 #include "UnrealBuiltInGuideStyle.h"
 
@@ -34,12 +35,22 @@ void FUnrealBuiltInGuideModule::StartupModule()
 	FUnrealBuiltInGuideStyle::Initialize();
 	UToolMenus::RegisterStartupCallback(FSimpleMulticastDelegate::FDelegate::CreateRaw(this, &FUnrealBuiltInGuideModule::RegisterMenus));
 
-	SettingsChangedHandle = GetSettings()->OnSettingChanged().AddRaw(this, &FUnrealBuiltInGuideModule::OnSettingsChanged);
+	SettingsObject = GetSettings();
+	SettingsChangedHandle = SettingsObject.Get()->OnSettingChanged().AddRaw(this, &FUnrealBuiltInGuideModule::OnSettingsChanged);
 }
 
 void FUnrealBuiltInGuideModule::ShutdownModule()
 {
-	GetSettings()->OnSettingChanged().Remove(SettingsChangedHandle);
+	// Module shutdown can run after UObject teardown; never recreate the settings CDO here.
+	if (UObjectInitialized())
+	{
+		if (UUnrealBuiltInGuideSettings* Settings = SettingsObject.Get())
+		{
+			Settings->OnSettingChanged().Remove(SettingsChangedHandle);
+		}
+	}
+	SettingsObject.Reset();
+	SettingsChangedHandle.Reset();
 
 	UToolMenus::UnRegisterStartupCallback(this);
 	UToolMenus::UnregisterOwner(this);

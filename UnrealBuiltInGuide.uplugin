@@ -1,7 +1,7 @@
 {
 	"FileVersion": 3,
-	"Version": 1,
-	"VersionName": "1.0.0",
+	"Version": 2,
+	"VersionName": "1.1.0",
 	"FriendlyName": "Unreal Built-in Guide",
 	"Description": "Adds a configurable toolbar button that opens a web guide (default: the Unreal style guide) directly from the editor.",
 	"Category": "Editor",

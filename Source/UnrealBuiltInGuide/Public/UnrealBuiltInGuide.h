@@ -19,5 +19,6 @@ private:
 	FText GetButtonLabel() const;
 	void OnSettingsChanged(UObject* Settings, struct FPropertyChangedEvent& PropertyChangedEvent);
 
+	TWeakObjectPtr<class UUnrealBuiltInGuideSettings> SettingsObject;
 	FDelegateHandle SettingsChangedHandle;
 };
