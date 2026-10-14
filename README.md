@@ -7,6 +7,8 @@ configurable; out of the box it points at the Unreal style guide.
 * **Engine:** Unreal Engine 5.6 (Win64).
 * **Module:** a single editor module (`Source/UnrealBuiltInGuide`).
 * **Default target:** `https://ultikynnys.github.io/ue5-style-guide/`.
+* **Distribution:** this repository is source only. A precompiled Win64 build is published on the
+  Releases page for users without a C++ toolchain.
 
 ## Where the button lives
 
@@ -28,10 +30,21 @@ enable **Unreal Built-in Guide** under *Edit → Plugins* (category **Editor**):
 <YourProject>/Plugins/UnrealBuiltInGuide/
 ```
 
-Because this is a C++ plugin, opening the project the first time compiles it, so a C++
-toolchain (Visual Studio with the "Game development with C++" workload) is required. A
-blueprint-only project still needs the toolchain once, to build the plugin module; after
-that the button is available like any other editor UI.
+There are two ways to get it there, and the right one depends on whether the machine has
+a C++ toolchain:
+
+* **Precompiled (no toolchain).** Download the release zip and copy its `UnrealBuiltInGuide`
+  folder to the path above. The bundled `Binaries/` make the plugin load in the editor
+  immediately.
+* **From source (needs a toolchain).** Clone this repository to the path above. Opening the
+  project compiles the plugin, so this requires a C++ toolchain (Visual Studio with the
+  "Game development with C++" workload).
+
+Do not hand a source clone to someone without a toolchain: opening the project triggers a
+compile that will fail. The binary release, by contrast, ships with `bUsePrecompiled = true`
+in its `UnrealBuiltInGuide.Build.cs`, so a C++ project links the shipped module directly and
+a blueprint-only project just loads the editor binaries. It also omits debug symbols (see
+[PDB.md](PDB.md)).
 
 ## Configuration
 
